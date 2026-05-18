@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-5">
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm border">
+        <div class="container-fluid py-3">
+            <h1 class="display-5 fw-bold text-primary mb-3">Welcome to FleetManagerPro</h1>
+            <p class="col-md-8 fs-4 text-secondary">
+                Your central command hub for managing vehicle inventory, tracking maintenance logs, and monitoring overall fleet health in real-time.
+            </p>
+            <a asp-controller="Vehicles" asp-action="Index" class="btn btn-primary btn-lg mt-3 shadow-sm">
+                <i class="bi bi-car-front-fill me-2"></i> View Fleet Inventory
+            </a>
+        </div>
+    </div>
+
+    <div class="row align-items-md-stretch mt-4">
+        
+        <div class="col-md-6 mb-4">
+            <div class="h-100 p-5 text-white bg-dark rounded-3 shadow">
+                <h2 class="mb-3">Maintenance Bay</h2>
+                <p>Quickly access the service logs to update repair histories, check on vehicles currently in the shop, and monitor preventative maintenance schedules.</p>
+                <a asp-controller="Vehicles" asp-action="Index" class="btn btn-outline-light mt-2">
+                    Access Service Logs
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="h-100 p-5 bg-white border rounded-3 shadow-sm">
+                <h2 class="text-success mb-3">System Health</h2>
+                <p>All database connections are stable. The predictive AI diagnostic modules and regular background worker processes are running smoothly.</p>
+                <button class="btn btn-outline-success mt-2" type="button" disabled>
+                    Status: Online
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

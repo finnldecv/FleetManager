@@ -1,0 +1,48 @@
+@model Vehicle
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white py-3">
+                    <h2 class="h5 mb-0 fw-bold">Register New Vehicle</h2>
+                </div>
+                
+                <div class="card-body p-4 bg-light">
+                    <form asp-action="Create" method="post">
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="Make" class="form-label fw-bold text-secondary">Make</label>
+                                <input asp-for="Make" class="form-control" placeholder="e.g. VinFast" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Model" class="form-label fw-bold text-secondary">Model</label>
+                                <input asp-for="Model" class="form-control" placeholder="e.g. VF8" required />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="VIN" class="form-label fw-bold text-secondary">Vehicle Identification Number (VIN)</label>
+                            <input asp-for="VIN" class="form-control text-uppercase text-monospace" placeholder="17-character VIN" required />
+                            <div class="form-text">Must be exactly 17 characters.</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="CurrentMileage" class="form-label fw-bold text-secondary">Starting Mileage (km)</label>
+                            <input asp-for="CurrentMileage" type="number" class="form-control" placeholder="0" required />
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a asp-controller="Vehicles" asp-action="Index" class="text-decoration-none text-muted">Cancel</a>
+                            <button type="submit" class="btn btn-primary fw-bold px-4">Save Vehicle</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
