@@ -202,3 +202,4 @@ D:\Code\FleetManager\FleetManager\obj\Debug\net10.0\compressed\7f9odre9j8-{0}-5s
 D:\Code\FleetManager\FleetManager\obj\Debug\net10.0\compressed\9ap7rhx1l5-{0}-ir474ug6zy-ir474ug6zy.gz
 D:\Code\FleetManager\FleetManager\obj\Debug\net10.0\compressed\7v0lvh5p06-{0}-5cl6jzyzps-5cl6jzyzps.gz
 D:\Code\FleetManager\FleetManager\obj\Debug\net10.0\compressed\o9s5z1k9d5-{0}-a2c1phmbzv-a2c1phmbzv.gz
+D:\Code\FleetManager\FleetManager\obj\Debug\net10.0\FleetManager.sourcelink.json

@@ -13,6 +13,8 @@ builder.Services.AddDbContext<AppDbContext>(opts =>
     opts.UseSqlServer(connectionString));
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IRecordRepository, RecordRepository>();
+builder.Services.AddScoped<IRecordService, RecordService>();
 
 var app = builder.Build();
 

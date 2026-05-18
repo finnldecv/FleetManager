@@ -1,16 +1,14 @@
-using FleetManager.Data;
 using FleetManager.Interfaces;
-using FleetManager.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleetManager.Controllers;
 
 public class HomeController : Controller
 {
-    private IVehicleService _service;
-    public HomeController(IVehicleService service)
+    private IVehicleService _vehicleService;
+    public HomeController(IVehicleService vehicleService)
     {
-        _service = service;
+        _vehicleService = vehicleService;
     }
     public async Task<IActionResult> Index()
     {

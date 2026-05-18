@@ -1,9 +1,5 @@
-using FleetManager.Data;
 using FleetManager.Models;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using FleetManager.Services;
 using FleetManager.Interfaces;
 
 namespace FleetManager.Controllers;
@@ -11,9 +7,9 @@ namespace FleetManager.Controllers;
 public class VehiclesController : Controller
 {
     private IVehicleService _vehicleService;
-    public VehiclesController(IVehicleService service)
+    public VehiclesController(IVehicleService vehicleService)
     {
-        _vehicleService = service;
+        _vehicleService = vehicleService;
     }
     public async Task<IActionResult> Index()
     {
