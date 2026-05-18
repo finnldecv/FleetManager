@@ -13,8 +13,7 @@ public class VehiclesController : Controller
     }
     public async Task<IActionResult> Index()
     {
-        var vehicles = await _vehicleService.GetAllVehiclesAsync();
-        return View(vehicles);
+        return View(await _vehicleService.GetAllVehiclesAsync());
     }
     public async Task<IActionResult> Details(int id)
     {
@@ -42,7 +41,7 @@ public class VehiclesController : Controller
     public async Task<IActionResult> Edit(int id)
     {
         var vehicle = await _vehicleService.GetVehicleByIdAsync(id);
-        if(vehicle == null)
+        if (vehicle == null)
         {
             return NotFound("Vehicle not found or has been deleted");
         }

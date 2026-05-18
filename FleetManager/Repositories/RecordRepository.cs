@@ -2,6 +2,7 @@ using FleetManager.Data;
 using FleetManager.Models;
 using FleetManager.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using FleetManager.Services;
 
 namespace FleetManager.Repositories;
 
@@ -14,12 +15,24 @@ public class RecordRepository : IRecordRepository
         _context = context;
     }
 
+    public async Task<IEnumerable<ServiceRecord>> GetAllRecordsAsync()
+    {
+        return await _context.ServiceRecords
+                            .Include(s => s.Vehicle)
+                            .ToListAsync();
+    }
+
+    public async Task<ServiceRecord?> GetRecordByIdAsync(int id)
+    {
+        return await _context.ServiceRecords.FindAsync(id);
+    }
+
     public async Task AddRecordAsync(ServiceRecord serviceRecord)
     {
         _context.ServiceRecords.Add(serviceRecord);
         await _context.SaveChangesAsync();
     }
-    
+
     public async Task UpdateRecordAsync(ServiceRecord serviceRecord)
     {
         _context.ServiceRecords.Update(serviceRecord);

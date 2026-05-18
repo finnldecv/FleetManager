@@ -1,7 +1,7 @@
 @model Vehicle
 
 <div class="container mt-5">
-    
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="display-5 fw-bold mb-0">@Model.Make @Model.Model</h1>
@@ -18,7 +18,7 @@
     <div class="card shadow-sm border-0">
         <div class="card-header bg-white d-flex justify-content-between align-items-center py-3 border-bottom">
             <h2 class="h5 mb-0 fw-bold text-dark">Maintenance History</h2>
-            <a asp-controller="Records" asp-action="Create" asp-route-vehicleId="@Model.Id" 
+            <a asp-controller="Records" asp-action="Create" asp-route-vehicleId="@Model.Id"
                class="btn btn-primary btn-sm fw-bold">
                 + Add Log
             </a>
@@ -43,6 +43,14 @@
                                 <td class="py-3 px-4 text-secondary">@record.ServiceDate.ToString("MMM dd, yyyy")</td>
                                 <td class="py-3 px-4 fw-semibold text-dark">@record.Description</td>
                                 <td class="py-3 px-4 text-muted text-monospace">@record.MileageAtService.ToString("N0")</td>
+                                <td class="py-3 px-4 text-end">
+                                    <div class="btn-group" role="group">
+                                        <a asp-controller="Records" asp-action="Edit" asp-route-id="@record.Id"
+                                           class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <a asp-controller="Records" asp-action="Delete" asp-route-id="@record.Id"
+                                           class="btn btn-sm btn-outline-danger">Delete</a>
+                                    </div>
+                                </td>
                             </tr>
                         }
                     }
