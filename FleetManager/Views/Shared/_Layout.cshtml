@@ -1,18 +1,53 @@
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>FleetManager</title>
-        <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    </head>
-    <body>
-        <div class="bg-dark text-white p-2">
-            <a class="navbar-brand ml-2" asp-action="Index" asp-controller="Home" class="btn btn-sm">FLEET MANAGER</a>
-        </div>
-        <div class="row m-1 p-1">
-            <div >
-                @RenderBody()  
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>FleetManager</title>
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-action="Index" asp-controller="Home">FleetManager</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "Home" ? "active" : "")" aria-current="page"
+                           asp-action="Index" asp-controller="Home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "Vehicles" ? "active" : "")" asp-action="Index"
+                           asp-controller="Vehicles">Vehicles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "Records" ? "active" : "")" asp-action="Index"
+                           asp-controller="Records">Records</a>
+                    </li>
+                </ul>
+                <form class="d-flex" asp-controller="Vehicles" asp-action="Index" method="get">
+                    <input class="form-control form-control-sm me-2" type="search" name="searchString"
+                           placeholder="Search Make, Model, VIN..." aria-label="Search" value="@ViewData["CurrentFilter"]">
+                    <button class="btn btn-sm btn-dark fw-bold" type="submit">Search</button>
+                </form>
             </div>
         </div>
-    </body>
+    </nav>
+    <div class="row m-1 p-1">
+        <div>
+            @RenderBody()
+        </div>
+    </div>
+</body>
+
 </html>

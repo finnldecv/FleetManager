@@ -1,41 +1,92 @@
+@model DashboardViewModel
+
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Executive Dashboard";
 }
 
-<div class="container mt-5">
-    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm border">
-        <div class="container-fluid py-3">
-            <h1 class="display-5 fw-bold text-primary mb-3">Welcome to FleetManagerPro</h1>
-            <p class="col-md-8 fs-4 text-secondary">
-                Your central command hub for managing vehicle inventory, tracking maintenance logs, and monitoring overall fleet health in real-time.
-            </p>
-            <a asp-controller="Vehicles" asp-action="Index" class="btn btn-primary btn-lg mt-3 shadow-sm">
-                <i class="bi bi-car-front-fill me-2"></i> View Fleet Inventory
-            </a>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-5 fw-bold mb-0">Fleet Overview</h1>
+            <p class="text-muted mt-1">Real-time telemetry and maintenance tracking</p>
         </div>
     </div>
 
-    <div class="row align-items-md-stretch mt-4">
+    <div class="row mb-5">
         
-        <div class="col-md-6 mb-4">
-            <div class="h-100 p-5 text-white bg-dark rounded-3 shadow">
-                <h2 class="mb-3">Maintenance Bay</h2>
-                <p>Quickly access the service logs to update repair histories, check on vehicles currently in the shop, and monitor preventative maintenance schedules.</p>
-                <a asp-controller="Records" asp-action="Index" class="btn btn-outline-light mt-2">
-                    Access Service Logs
-                </a>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 border-start border-primary border-5 h-100">
+                <div class="card-body p-4">
+                    <h6 class="text-muted text-uppercase fw-bold mb-2">Active Vehicles</h6>
+                    <h2 class="display-4 fw-bold text-dark mb-0">@Model.TotalVehicles</h2>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-6 mb-4">
-            <div class="h-100 p-5 bg-white border rounded-3 shadow-sm">
-                <h2 class="text-success mb-3">System Health</h2>
-                <p>All database connections are stable. The predictive AI diagnostic modules and regular background worker processes are running smoothly.</p>
-                <button class="btn btn-outline-success mt-2" type="button" disabled>
-                    Status: Online
-                </button>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 border-start border-success border-5 h-100">
+                <div class="card-body p-4">
+                    <h6 class="text-muted text-uppercase fw-bold mb-2">Total Fleet Mileage</h6>
+                    <h2 class="display-4 fw-bold text-dark mb-0">@Model.TotalFleetMileage.ToString("N0") <span class="fs-4 text-muted">km</span></h2>
+                </div>
             </div>
         </div>
 
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 border-start border-info border-5 h-100">
+                <div class="card-body p-4">
+                    <h6 class="text-muted text-uppercase fw-bold mb-2">Maintenance Logs</h6>
+                    <h2 class="display-4 fw-bold text-dark mb-0">@Model.TotalMaintenanceLogs</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-bold"><i class="bi bi-clock-history me-2 text-primary"></i>Recent Maintenance Activity</h5>
+            <a asp-controller="Records" asp-action="Index" class="btn btn-sm btn-outline-primary">View All Logs</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="py-3 px-4">Date</th>
+                        <th class="py-3 px-4">Vehicle</th>
+                        <th class="py-3 px-4">Service Performed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.RecentServices != null && Model.RecentServices.Any())
+                    {
+                        @foreach (var record in Model.RecentServices)
+                        {
+                            <tr>
+                                <td class="py-3 px-4 fw-semibold text-dark">
+                                    @record.ServiceDate.ToString("MMM dd, yyyy")
+                                </td>
+                                <td class="py-3 px-4">
+                                    <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@record.VehicleId" class="text-decoration-none fw-bold">
+                                        @record.Vehicle?.Make @record.Vehicle?.Model
+                                    </a>
+                                </td>
+                                <td class="py-3 px-4 text-secondary">
+                                    @record.Description
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="p-5 text-center text-muted">
+                                <em>No recent maintenance activity.</em>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

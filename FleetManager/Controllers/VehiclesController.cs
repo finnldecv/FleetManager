@@ -11,9 +11,21 @@ public class VehiclesController : Controller
     {
         _vehicleService = vehicleService;
     }
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string searchString)
     {
-        return View(await _vehicleService.GetAllVehiclesAsync());
+        ViewData["CurrentFilter"] = searchString;
+        var vehicles = await _vehicleService.GetAllVehiclesAsync();
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            var searchLower = searchString.ToLower();
+
+            vehicles = vehicles.Where(v =>
+                v.Make.ToLower().Contains(searchLower) ||
+                v.Model.ToLower().Contains(searchLower) ||
+                v.VIN.ToLower().Contains(searchLower)
+            ).ToList();
+        }
+        return View(vehicles);
     }
     public async Task<IActionResult> Details(int id)
     {
