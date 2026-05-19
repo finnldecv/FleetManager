@@ -3,7 +3,7 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-            
+
             <div class="card shadow border-primary border-top border-4">
                 <div class="card-header bg-white py-3">
                     <h2 class="h5 mb-0 fw-bold text-dark">
@@ -11,38 +11,45 @@
                     </h2>
                     <p class="text-muted small mb-0 mt-1">Vehicle: <span class="fw-bold">@ViewBag.VehicleName</span></p>
                 </div>
-                
+
                 <div class="card-body p-4 bg-light">
                     <form asp-action="Create" method="post">
-                        
+
                         <input type="hidden" asp-for="VehicleId" />
 
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label asp-for="ServiceDate" class="form-label fw-bold text-secondary">Date of Service</label>
-                                <input asp-for="ServiceDate" type="date" class="form-control" required />
+                                <label asp-for="ServiceDate" class="form-label fw-bold text-secondary">Date of
+                                    Service</label>
+                                    <input asp-for="ServiceDate" type="date" class="form-control" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="MileageAtService" class="form-label fw-bold text-secondary">Mileage at
+                                        Service</label>
+                                        <input asp-for="MileageAtService" type="number" class="form-control"
+                                               min="@ViewBag.CurrentMileage" required />
+                                        <div class="form-text small">Current: @ViewBag.CurrentMileage km</div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label asp-for="Description" class="form-label fw-bold text-secondary">Service
+                                        Description</label>
+                                        <textarea asp-for="Description" class="form-control" rows="4"
+                                                  placeholder="e.g., Replaced brake pads, performed oil change, rotated tires..."
+                                                  required></textarea>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@Model.VehicleId"
+                                           class="btn btn-outline-secondary fw-bold px-4">Cancel</a>
+                                        <button type="submit" class="btn btn-primary fw-bold px-4">Save Service Log</button>
+                                    </div>
+
+                                </form>
                             </div>
-                            <div class="col-md-6">
-                                <label asp-for="MileageAtService" class="form-label fw-bold text-secondary">Mileage at Service</label>
-                                <input asp-for="MileageAtService" type="number" class="form-control" min="@ViewBag.CurrentMileage" required />
-                                <div class="form-text small">Current: @ViewBag.CurrentMileage km</div>
-                            </div>
                         </div>
 
-                        <div class="mb-4">
-                            <label asp-for="Description" class="form-label fw-bold text-secondary">Service Description</label>
-                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="e.g., Replaced brake pads, performed oil change, rotated tires..." required></textarea>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center mt-2">
-                            <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@Model.VehicleId" class="btn btn-outline-secondary fw-bold px-4">Cancel</a>
-                            <button type="submit" class="btn btn-primary fw-bold px-4">Save Service Log</button>
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
             </div>
-
-        </div>
-    </div>
-</div>
