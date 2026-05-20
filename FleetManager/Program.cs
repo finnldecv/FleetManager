@@ -15,6 +15,17 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireDeleteClearance", policy =>
+        policy.RequireClaim("Permission", "DeleteVehicles"));
+});
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Acount/Logout";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
