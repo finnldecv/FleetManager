@@ -1,9 +1,11 @@
 using FleetManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using FleetManager.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FleetManager.Controllers;
 
+[Authorize]
 public class VehiclesController : Controller
 {
     private IVehicleService _vehicleService;

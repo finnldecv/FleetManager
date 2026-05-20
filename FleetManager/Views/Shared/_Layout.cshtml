@@ -35,6 +35,9 @@
                            asp-controller="Records">Records</a>
                     </li>
                 </ul>
+                <div class="d-flex align-items-center me-3">
+                    <partial name="_LoginPartial" />
+                </div>
                 <form class="d-flex" asp-controller="Vehicles" asp-action="Index" method="get">
                     <input class="form-control form-control-sm me-2" type="search" name="searchString"
                            placeholder="Search Make, Model, VIN..." aria-label="Search" value="@ViewData["CurrentFilter"]">
@@ -48,6 +51,7 @@
             @RenderBody()
         </div>
     </div>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
