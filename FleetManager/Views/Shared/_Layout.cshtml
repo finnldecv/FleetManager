@@ -34,6 +34,17 @@
                         <a class="nav-link @(currentController == "Records" ? "active" : "")" asp-action="Index"
                            asp-controller="Records">Records</a>
                     </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Admin" ? "active" : "")" asp-controller="Admin"
+                                asp-action="Index">🛡️ Employee Directory</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Role" ? "active" : "")" asp-controller="Role" 
+                                asp-action="Index">🔑 Role Management</a>
+                        </li>
+                    }
                 </ul>
                 <div class="d-flex align-items-center me-3">
                     <partial name="_LoginPartial" />

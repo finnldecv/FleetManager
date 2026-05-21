@@ -11,7 +11,7 @@
 
                 <div class="card-body p-4 bg-light">
                     <form asp-action="Edit" method="post">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div asp-validation-summary="All" class="text-danger"></div>
                         <input type="hidden" asp-for="Id" />
                         <div class="row mb-3">
                             <div class="col-md-6">
@@ -39,9 +39,9 @@
                                            placeholder="12ABC-DE" />
                                 </div>
 
-                                <div class=mb-3>
+                                <div class="mb-3">
                                     <label asp-for="Year" class="form-label fw-bold text-secondary">Year</label>
-                                    <input asp-for="Year" class="form-control" />
+                                    <input asp-for="Year" type="number" class="form-control" placeholder="YYYY" />
                                 </div>
 
                                 <div class="mb-4">
