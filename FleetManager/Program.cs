@@ -37,10 +37,13 @@ builder.Services.AddScoped<IRecordService, RecordService>();
 
 var app = builder.Build();
 
-app.UseStaticFiles();
 // app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
 

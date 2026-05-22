@@ -1,12 +1,23 @@
 @using Microsoft.AspNetCore.Identity
+@using FleetManager.Models
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
 @if (SignInManager.IsSignedIn(User))
 {
+    @if (user != null && !string.IsNullOrEmpty(user.ProfilePictureUrl))
+    {
+        <img src="@user.ProfilePictureUrl" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;" />
+    }
     <a class="nav-link text-dark" asp-controller="Profile" asp-action="Index" title="Manage">
-        Hello, @((UserManager.GetUserAsync(User).Result?.FirstName == string.Empty) ? User.Identity?.Name : UserManager.GetUserAsync(User).Result?.FirstName)
+        Hello, @((user?.FirstName == string.Empty) ? User.Identity?.Name :
+                                    user?.FirstName)
     </a>
+
     <form class="d-inline me-3" asp-controller="Account" asp-action="Logout" method="post">
         <button type="submit" class="btn btn-sm btn-outline-danger border-0 fw-bold">Logout</button>
     </form>
