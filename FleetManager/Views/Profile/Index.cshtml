@@ -1,0 +1,43 @@
+@model ApplicationUser
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container mt-5">
+    @if (TempData["StatusMesssage"] != null){
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> @TempData["StatusMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm text-center border-0 border-top border-primary border-5">
+                <div class="card-body p-4">
+                    <h2 class="display-1 text-primary mb-3">👤</h2>
+                    <h4 class="fw-bold">@Model.FirstName @Model.LastName</h4>
+                    <p class="text-muted">@Model.UserName</p>
+                    <hr />
+                    <p class="mb-1"><strong>Email:</strong> @Model.Email</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white fw-bold py-3">
+                    Security Settings
+                </div>
+                <div class="card-body p-4 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="fw-bold mb-1">Account Password</h5>
+                        <p class="text-muted mb-0 small">It is a good idea to use a strong password that you don't use elsewhere.</p>
+                    </div>
+                    <a asp-action="ChangePassword" class="btn btn-primary fw-bold">Change Password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

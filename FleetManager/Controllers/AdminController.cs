@@ -80,4 +80,58 @@ public class AdminController : Controller
         }
         return RedirectToAction("Index");
     }
+    [HttpPost]
+    public async Task<IActionResult> ToggleLock(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null) return NotFound();
+
+        if(user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.UtcNow)
+        {
+            await _userManager.SetLockoutEndDateAsync(user, null);
+        }
+        else
+        {
+            await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow.AddYears(100));
+        }
+        return RedirectToAction(nameof(Index));
+    }
+    public async Task<IActionResult> ResetPassword(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        if(user == null) return NotFound();
+
+        var model = new AdminResetPasswordViewModel
+        {
+            UserId = user.Id,
+            UserName = user.UserName
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ResetPassword(AdminResetPasswordViewModel model)
+    {
+        if (!ModelState.IsValid) return View(model);
+
+        var user = await _userManager.FindByIdAsync(model.UserId);
+        if (user == null) return NotFound();
+
+        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+        var result = await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
+
+        if (result.Succeeded)
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
+
+        return View(model);
+    }
 }

@@ -4,7 +4,9 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <span class="text-dark me-3 small">Hello, @UserManager.GetUserAsync(User).Result?.FirstName!</span>
+    <a class="nav-link text-dark" asp-controller="Profile" asp-action="Index" title="Manage">
+        Hello, @((UserManager.GetUserAsync(User).Result?.FirstName == string.Empty) ? User.Identity?.Name : UserManager.GetUserAsync(User).Result?.FirstName)
+    </a>
     <form class="d-inline me-3" asp-controller="Account" asp-action="Logout" method="post">
         <button type="submit" class="btn btn-sm btn-outline-danger border-0 fw-bold">Logout</button>
     </form>
