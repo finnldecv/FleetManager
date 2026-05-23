@@ -37,12 +37,4 @@ public class VehicleService : IVehicleService
         }
         await _vehicleRepository.DeleteVehicleAsync(id);
     }
-    public async Task<bool> PerformRoutineInspectionAsync(int vehicleId, int currentMileage)
-    {
-        var car = await _vehicleRepository.GetVehicleByIdAsync(vehicleId);
-        if (car == null) return false;
-        car.CurrentMileage = currentMileage;
-        await _vehicleRepository.UpdateVehicleAsync(car);
-        return true;
-    }
 }

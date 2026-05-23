@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FleetManager.Models;
 
@@ -27,4 +28,7 @@ public class Vehicle
     public string? LicensePlate { get; set; }
     public List<ServiceRecord> ServiceRecords { get; set; } = new();
     public bool IsDeleted { get; set; } = false;
+    public string? MechanicId { get; set; }
+    [ForeignKey("MechanicId")]
+    public virtual ApplicationUser? Mechanic { get; set; }
 }

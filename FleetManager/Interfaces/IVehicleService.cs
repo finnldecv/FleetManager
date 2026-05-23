@@ -9,5 +9,4 @@ public interface IVehicleService
     Task AddVehicleAsync(Vehicle vehicle);
     Task UpdateVehicleAsync(Vehicle vehicle);
     Task DeleteVehicleAsync(int id);
-    Task<bool> PerformRoutineInspectionAsync(int vehicleId, int currentMileage);
 } 

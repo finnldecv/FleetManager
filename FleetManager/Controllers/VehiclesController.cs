@@ -2,6 +2,10 @@ using FleetManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using FleetManager.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using FleetManager.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FleetManager.Controllers;
 
@@ -9,9 +13,13 @@ namespace FleetManager.Controllers;
 public class VehiclesController : Controller
 {
     private IVehicleService _vehicleService;
-    public VehiclesController(IVehicleService vehicleService)
+    private AppDbContext _context;
+    private UserManager<ApplicationUser> _userManager;
+    public VehiclesController(IVehicleService vehicleService, AppDbContext context, UserManager<ApplicationUser> userManager)
     {
         _vehicleService = vehicleService;
+        _context = context;
+        _userManager = userManager;
     }
     public async Task<IActionResult> Index(string searchString)
     {
@@ -40,6 +48,10 @@ public class VehiclesController : Controller
     }
     public async Task<IActionResult> Create()
     {
+        var allUsers = await _userManager.Users.ToListAsync();
+
+        ViewBag.MechanicList = new SelectList(allUsers, "Id", "UserName");
+
         return View();
     }
     [HttpPost]
@@ -54,11 +66,17 @@ public class VehiclesController : Controller
     }
     public async Task<IActionResult> Edit(int id)
     {
+        var allUsers = await _userManager.Users.ToListAsync();
+
+        ViewBag.MechanicList = new SelectList(allUsers, "Id", "UserName");
+
         var vehicle = await _vehicleService.GetVehicleByIdAsync(id);
+
         if (vehicle == null)
         {
             return NotFound("Vehicle not found or has been deleted");
         }
+
         return View(vehicle);
     }
     [HttpPost]

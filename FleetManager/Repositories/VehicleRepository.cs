@@ -14,13 +14,16 @@ public class VehicleRepository : IVehicleRepository
     }
     public async Task<IEnumerable<Vehicle>> GetAllVehiclesAsync()
     {
-        return await _dbContext.Vehicles.ToListAsync();
+        return await _dbContext.Vehicles
+            .Include(v => v.Mechanic)
+            .ToListAsync();
     }
 
     public async Task<Vehicle?> GetVehicleByIdAsync(int id)
     {
         return await _dbContext.Vehicles
             .Include(v => v.ServiceRecords)
+            .Include(v => v.Mechanic)
             .FirstOrDefaultAsync(v => v.Id == id);
     }
     public async Task AddVehicleAsync(Vehicle vehicle)

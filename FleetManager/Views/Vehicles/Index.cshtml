@@ -1,7 +1,7 @@
 @model IEnumerable<Vehicle>
 
 <div class="container mt-5">
-    
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="display-6 fw-bold mb-0">Fleet Inventory</h1>
@@ -22,6 +22,7 @@
                         <th class="py-3 px-4 border-bottom-0">Make & Model</th>
                         <th class="py-3 px-4 border-bottom-0">VIN</th>
                         <th class="py-3 px-4 border-bottom-0">Current Mileage</th>
+                        <th class="py-3 px-4 border-bottom-0">Assigned Mechanic</th>
                         <th class="py-3 px-4 border-bottom-0 text-end">Actions</th>
                     </tr>
                 </thead>
@@ -40,12 +41,25 @@
                                 <td class="py-3 px-4 text-success fw-semibold">
                                     @car.CurrentMileage.ToString("N0") km
                                 </td>
+                                <td class="py-3 px-4">
+                                    @if (car.Mechanic != null)
+                                    {
+                                        <span class="badge bg-primary">@car.Mechanic.FirstName @car.Mechanic.LastName</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted small">Unassigned</span>
+                                    }
+                                </td>
                                 <td class="py-3 px-4 text-end">
                                     <div class="btn-group" role="group">
-                                        <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-sm btn-outline-info fw-bold">View</a>
-                                        
-                                        <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                        <a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                                        <a asp-action="Details" asp-route-id="@car.Id"
+                                           class="btn btn-sm btn-outline-info fw-bold">View</a>
+
+                                        <a asp-action="Edit" asp-route-id="@car.Id"
+                                           class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <a asp-action="Delete" asp-route-id="@car.Id"
+                                           class="btn btn-sm btn-outline-danger">Delete</a>
                                     </div>
                                 </td>
                             </tr>
