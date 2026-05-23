@@ -13,12 +13,10 @@ namespace FleetManager.Controllers;
 public class VehiclesController : Controller
 {
     private IVehicleService _vehicleService;
-    private AppDbContext _context;
     private UserManager<ApplicationUser> _userManager;
-    public VehiclesController(IVehicleService vehicleService, AppDbContext context, UserManager<ApplicationUser> userManager)
+    public VehiclesController(IVehicleService vehicleService, UserManager<ApplicationUser> userManager)
     {
         _vehicleService = vehicleService;
-        _context = context;
         _userManager = userManager;
     }
     public async Task<IActionResult> Index(string searchString)
