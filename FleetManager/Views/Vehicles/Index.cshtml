@@ -1,4 +1,4 @@
-@model IEnumerable<Vehicle>
+@model PaginatedList<Vehicle>
 
 <div class="container mt-5">
 
@@ -37,7 +37,8 @@
                                     @if (car.NeedsMaintenance)
                                     {
                                         <br />
-                                        <span class="badge bg-warning text-dark mt-1 shadow-sm" title="Over 5,000 mileage since last maintenance">
+                                        <span class="badge bg-warning text-dark mt-1 shadow-sm"
+                                              title="Over 5,000 mileage since last maintenance">
                                             ⚠️ Service Due
                                         </span>
                                     }
@@ -82,6 +83,26 @@
                     }
                 </tbody>
             </table>
+        </div>
+    </div>
+    
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <div class="text-muted small">
+            Page @Model.PageIndex of @Model.TotalPages
+        </div>
+
+        <div class="btn-group shadow-sm">
+            <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)"
+               asp-route-searchString="@ViewData["CurrentFilter"]"
+               class="btn btn-outline-primary @(!Model.HasPreviousPage ? "disabled" : "")">
+                ← Previous
+            </a>
+
+            <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)"
+               asp-route-searchString="@ViewData["CurrentFilter"]"
+               class="btn btn-outline-primary @(!Model.HasNextPage ? "disabled" : "")">
+                Next →
+            </a>
         </div>
     </div>
 </div>

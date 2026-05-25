@@ -19,20 +19,15 @@ public class VehiclesController : Controller
         _vehicleService = vehicleService;
         _userManager = userManager;
     }
-    public async Task<IActionResult> Index(string searchString)
+    public async Task<IActionResult> Index(string? searchString, int? pageNumber)
     {
         ViewData["CurrentFilter"] = searchString;
-        var vehicles = await _vehicleService.GetAllVehiclesAsync();
-        if (!string.IsNullOrEmpty(searchString))
-        {
-            var searchLower = searchString.ToLower();
+        
+        int pageSize = 5;
+        int pageIndex = pageNumber ?? 1;
 
-            vehicles = vehicles.Where(v =>
-                v.Make.ToLower().Contains(searchLower) ||
-                v.Model.ToLower().Contains(searchLower) ||
-                v.VIN.ToLower().Contains(searchLower)
-            ).ToList();
-        }
+        var vehicles = await _vehicleService.GetAllVehiclesAsync(searchString, pageIndex, pageSize);
+
         return View(vehicles);
     }
     public async Task<IActionResult> Details(int id)

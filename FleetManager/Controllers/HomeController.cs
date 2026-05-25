@@ -6,17 +6,20 @@ namespace FleetManager.Controllers;
 
 public class HomeController : Controller
 {
-    private IVehicleService _vehicleService;
-    private IRecordService _recordService;
-    public HomeController(IVehicleService vehicleService, IRecordService recordService)
+
+    private IVehicleRepository _vehicleRepo;
+
+    private IRecordRepository _recordRepo;
+    
+    public HomeController(IVehicleRepository vehicleRepo, IRecordRepository recordRepo)
     {
-        _vehicleService = vehicleService;
-        _recordService = recordService;
+        _vehicleRepo = vehicleRepo;
+        _recordRepo = recordRepo;
     }
     public async Task<IActionResult> Index()
     {
-        var vehicles = await _vehicleService.GetAllVehiclesAsync();
-        var records  = await _recordService.GetAllRecordsAsync();
+        var vehicles = await _vehicleRepo.GetAllVehiclesAsync();
+        var records  = await _recordRepo.GetAllRecordsAsync();
         return View(new DashboardViewModel
         {
             TotalVehicles = vehicles.Count(),

@@ -18,8 +18,8 @@ public class RecordRepository : IRecordRepository
     public async Task<IEnumerable<ServiceRecord>> GetAllRecordsAsync()
     {
         return await _context.ServiceRecords
-                            .Include(s => s.Vehicle)
-                            .ToListAsync();
+            .Include(s => s.Vehicle)
+            .ToListAsync();
     }
 
     public async Task<ServiceRecord?> GetRecordByIdAsync(int id)

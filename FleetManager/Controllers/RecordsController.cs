@@ -16,12 +16,17 @@ public class RecordsController : Controller
         _recordService = recordService;
         _webHostEnvironment = webHostEnvironment;
     }
-
-    public async Task<IActionResult> Index()
+    [HttpGet]
+    public async Task<IActionResult> Index(string? searchString, int? pageNumber)
     {
-        var records = await _recordService.GetAllRecordsAsync();
-        var sortedRecords = records.OrderByDescending(r => r.ServiceDate).ToList();
-        return View(sortedRecords);
+        ViewData["CurrentFilter"] = searchString;
+
+        int pageSize = 10;
+        int pageIndex = pageNumber ?? 1;
+
+        var records = await _recordService.GetAllRecordsAsync(searchString, pageIndex, pageSize);
+
+        return View(records);
     }
     public async Task<IActionResult> Create(int vehicleId)
     {

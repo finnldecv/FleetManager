@@ -17,7 +17,7 @@ public class VehicleRepository : IVehicleRepository
         return await _dbContext.Vehicles
             .Include(v => v.Mechanic)
             .Include(v => v.ServiceRecords)
-            .ToListAsync();
+            .ToListAsync(); 
     }
 
     public async Task<Vehicle?> GetVehicleByIdAsync(int id)
