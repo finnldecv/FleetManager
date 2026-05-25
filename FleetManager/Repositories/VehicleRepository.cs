@@ -16,6 +16,7 @@ public class VehicleRepository : IVehicleRepository
     {
         return await _dbContext.Vehicles
             .Include(v => v.Mechanic)
+            .Include(v => v.ServiceRecords)
             .ToListAsync();
     }
 

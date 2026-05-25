@@ -26,9 +26,29 @@ public class Vehicle
     [StringLength(15, ErrorMessage = "License Plate cannot exceed 15 characters.")]
     [Display(Name = "License Plate")]
     public string? LicensePlate { get; set; }
-    public List<ServiceRecord> ServiceRecords { get; set; } = new();
+    public List<ServiceRecord> ServiceRecords { get; set; } = new List<ServiceRecord>();
     public bool IsDeleted { get; set; } = false;
     public string? MechanicId { get; set; }
     [ForeignKey("MechanicId")]
     public virtual ApplicationUser? Mechanic { get; set; }
+
+    [NotMapped]
+    public bool NeedsMaintenance
+    {
+        get
+        {
+            if (ServiceRecords == null || !ServiceRecords.Any())
+                return true;
+
+            var lastMaintenance = ServiceRecords
+                .Where(sr => sr.Category == ServiceCategory.Maintenance)
+                .OrderByDescending(sr => sr.MileageAtService)
+                .FirstOrDefault();
+
+            if (lastMaintenance == null)
+                return true;
+
+            return (CurrentMileage - lastMaintenance.MileageAtService) >= 5000;
+        }
+    }
 }

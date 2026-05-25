@@ -22,7 +22,9 @@ public class HomeController : Controller
             TotalVehicles = vehicles.Count(),
             TotalFleetMileage = vehicles.Sum(v => v.CurrentMileage),
             TotalMaintenanceLogs = records.Count(),
-            RecentServices = records.OrderByDescending(r => r.ServiceDate).Take(5)
+            RecentServices = records.OrderByDescending(r => r.ServiceDate).Take(5),
+            TotalMaintenanceCost = records.Sum(r => r.Cost),
+            VehiclesNeedingService = vehicles.Count(v => v.NeedsMaintenance)
         });
     }
 }
