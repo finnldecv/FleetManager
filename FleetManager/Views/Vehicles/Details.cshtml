@@ -41,7 +41,17 @@
                         {
                             <tr>
                                 <td class="py-3 px-4 text-secondary">@record.ServiceDate.ToString("MMM dd, yyyy")</td>
-                                <td class="py-3 px-4 fw-semibold text-dark">@record.Description</td>
+                                <td class="py-3 px-4 fw-semibold text-dark">
+                                    <span class="badge bg-secondary me-2">@record.Category</span>
+                                    <span class="fw-bold">@record.Description</span>
+
+                                    @if (!string.IsNullOrEmpty(record.ReceiptUrl)){
+                                        <br />
+                                        <a href="@Url.Content("~/" + record.ReceiptUrl.TrimStart('/'))" target="_blank" class="badge bg-light text-primary border border-primary text-decoration-none mt-1">
+                                            📎 View Receipt
+                                        </a>
+                                    }
+                                </td>
                                 <td class="py-3 px-4 text-muted text-monospace">@record.MileageAtService.ToString("N0")</td>
                                 <td class="py-3 px-4 text-end">
                                     <div class="btn-group" role="group">

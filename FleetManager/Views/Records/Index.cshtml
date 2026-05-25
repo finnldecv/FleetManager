@@ -1,7 +1,7 @@
 @model IEnumerable<ServiceRecord>
 
 <div class="container mt-5">
-    
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="display-6 fw-bold mb-0"><i class="bi bi-clipboard-data me-2"></i> Global Maintenance Log</h1>
@@ -31,7 +31,8 @@
                                     @record.ServiceDate.ToString("MMM dd, yyyy")
                                 </td>
                                 <td class="py-3 px-4">
-                                    <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@record.VehicleId" class="text-decoration-none fw-bold">
+                                    <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@record.VehicleId"
+                                       class="text-decoration-none fw-bold">
                                         @record.Vehicle?.Make @record.Vehicle?.Model
                                     </a>
                                 </td>
@@ -39,12 +40,24 @@
                                     @record.MileageAtService.ToString("N0") km
                                 </td>
                                 <td class="py-3 px-4 text-secondary">
-                                    @record.Description
+                                    <span class="badge bg-secondary me-2">@record.Category</span>
+                                    <span class="fw-bold">@record.Description</span>
+
+                                    @if (!string.IsNullOrEmpty(record.ReceiptUrl))
+                                    {
+                                        <br />
+                                        <a href="@record.ReceiptUrl" target="_blank"
+                                           class="badge bg-light text-primary border border-primary text-decoration-none mt-1">
+                                            📎 View Receipt
+                                        </a>
+                                    }
                                 </td>
                                 <td class="py-3 px-4 text-end">
                                     <div class="btn-group" role="group">
-                                        <a asp-action="Edit" asp-route-id="@record.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                        <a asp-action="Delete" asp-route-id="@record.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                                        <a asp-action="Edit" asp-route-id="@record.Id"
+                                           class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <a asp-action="Delete" asp-route-id="@record.Id"
+                                           class="btn btn-sm btn-outline-danger">Delete</a>
                                     </div>
                                 </td>
                             </tr>

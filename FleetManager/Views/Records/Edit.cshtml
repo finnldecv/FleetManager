@@ -42,6 +42,12 @@
                         <label asp-for="Cost">Total Cost ($)</label>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label fw-light text-muted small">Attach Receipt / Invoice (Optional)</label>
+                        <input type="file" name="receipt" class="form-control" accept=".pdf, image/*" />
+                        <div class="form-text">Accepted formats: PDF, JPG, PNG</div>
+                    </div>
+                    
                     <div class="form-floating mb-4">
                         <textarea asp-for="Description" class="form-control" style="height: 100px" placeholder="Describe the work done..."></textarea>
                         <label asp-for="Description"></label>

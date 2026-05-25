@@ -28,7 +28,7 @@ public class ServiceRecord
     [Required]
     [DataType(DataType.Currency)]
     [Column(TypeName = "decimal(18, 2)")]
-    public decimal Cost {get;set;}
+    public decimal Cost { get; set; }
 
     [Required(ErrorMessage = "The date of service is required.")]
     [DataType(DataType.Date)]
@@ -46,4 +46,7 @@ public class ServiceRecord
     public Vehicle? Vehicle { get; set; }
 
     public bool IsDeleted { get; set; } = false;
+
+    [Display(Name = "Attached Receipt")]
+    public string? ReceiptUrl { get; set; }
 }

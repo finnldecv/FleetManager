@@ -1,6 +1,7 @@
 using FleetManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using FleetManager.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 
 namespace FleetManager.Controllers;
 
@@ -8,10 +9,12 @@ public class RecordsController : Controller
 {
     private IVehicleService _vehicleService;
     private IRecordService _recordService;
-    public RecordsController(IVehicleService vehicleService, IRecordService recordService)
+    private readonly IWebHostEnvironment _webHostEnvironment;
+    public RecordsController(IVehicleService vehicleService, IRecordService recordService, IWebHostEnvironment webHostEnvironment)
     {
         _vehicleService = vehicleService;
         _recordService = recordService;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     public async Task<IActionResult> Index()
@@ -42,10 +45,25 @@ public class RecordsController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(ServiceRecord record)
+    public async Task<IActionResult> Create(ServiceRecord record, IFormFile receipt)
     {
         if (ModelState.IsValid)
         {
+            if (receipt != null && receipt.Length > 0)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "documents", "receipts");
+
+                if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + receipt.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await receipt.CopyToAsync(fileStream);
+                }
+                record.ReceiptUrl = "documents/receipts/" + uniqueFileName;
+            }
             await _recordService.AddRecordAsync(record);
             return RedirectToAction("Details", "Vehicles", new { id = record.VehicleId });
         }
@@ -61,10 +79,25 @@ public class RecordsController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(ServiceRecord record)
+    public async Task<IActionResult> Edit(ServiceRecord record, IFormFile receipt)
     {
         if (ModelState.IsValid)
         {
+            if (receipt != null && receipt.Length > 0)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "documents", "receipts");
+
+                if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + receipt.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await receipt.CopyToAsync(fileStream);
+                }
+                record.ReceiptUrl = "documents/receipts/" + uniqueFileName;
+            }
             await _recordService.UpdateRecordAsync(record);
             return RedirectToAction("Index");
         }

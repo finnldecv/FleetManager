@@ -10,7 +10,7 @@
             <div class="card-body p-4">
                 <h3 class="fw-bold mb-4">⚙️ Log Vehicle Service</h3>
 
-                <form asp-action="Create" method="post">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
                     <input type="hidden" asp-for="VehicleId" />
 
                     <div asp-validation-summary="All" class="text-danger mb-3 small"></div>
@@ -40,6 +40,12 @@
                     <div class="form-floating mb-3">
                         <input asp-for="Cost" class="form-control" type="number" step="0.01" placeholder="0.00" />
                         <label asp-for="Cost">Total Cost ($)</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-light text-muted small">Attach Receipt / Invoice (Optional)</label>
+                        <input type="file" name="receipt" class="form-control" accept=".pdf, image/*" />
+                        <div class="form-text">Accepted formats: PDF, JPG, PNG</div>
                     </div>
 
                     <div class="form-floating mb-4">
