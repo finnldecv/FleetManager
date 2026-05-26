@@ -1,0 +1,72 @@
+# ==========================================
+# ASP.NET Core & Visual Studio / VS Code
+# ==========================================
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio folder
+.vs/
+
+# Visual Studio Code settings
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ==========================================
+# Database & Secrets
+# ==========================================
+# Local database files
+*.mdf
+*.ldf
+*.ndf
+*.sqlite
+*.db
+
+# Environment variables and secrets (NEVER commit these!)
+.env
+appsettings.Development.json
+appsettings.Production.json
+secrets.json
+
+# ==========================================
+# OS & File System
+# ==========================================
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Mac OS X directory files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ==========================================
+# Fleet Manager Specifics
+# ==========================================
+# Ignore locally uploaded receipts/documents so dummy files don't go to GitHub
+wwwroot/documents/receipts/*
+!wwwroot/documents/receipts/.keep
