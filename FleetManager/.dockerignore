@@ -1,0 +1,15 @@
+# Directories
+**/bin/
+**/obj/
+**/out/
+**/wwwroot/documents/receipts/
+
+# User-specific files
+*.user
+*.suo
+*.db
+*.sqlite
+
+# OS files
+.DS_Store
+Thumbs.db
